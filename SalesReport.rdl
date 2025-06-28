@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition"
+        xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description>Sample SSRS Sales Report</Description>
+  <DataSources>
+    <DataSource Name="DataSource1">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=.;Initial Catalog=BusinessDB</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>1</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="SalesDataSet">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>
+          SELECT FORMAT(SaleDate, 'yyyy-MM') AS Month, SUM(Amount) AS TotalSales
+          FROM Sales
+          GROUP BY FORMAT(SaleDate, 'yyyy-MM')
+        </CommandText>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Body>
+    <ReportItems>
+      <!-- Report body would be here -->
+    </ReportItems>
+  </Body>
+</Report>

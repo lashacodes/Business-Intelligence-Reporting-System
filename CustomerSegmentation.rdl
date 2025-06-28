@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition"
+        xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description>Sample SSRS Customer Segmentation Report</Description>
+  <DataSources>
+    <DataSource Name="DataSource1">
+      <ConnectionProperties>
+        <DataProvider>SQL</DataProvider>
+        <ConnectString>Data Source=.;Initial Catalog=BusinessDB</ConnectString>
+      </ConnectionProperties>
+      <rd:DataSourceID>1</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="CustomerDataSet">
+      <Query>
+        <DataSourceName>DataSource1</DataSourceName>
+        <CommandText>
+          SELECT dbo.fn_get_customer_age_group(DateOfBirth) AS AgeGroup, COUNT(*) AS Total
+          FROM Customers
+          GROUP BY dbo.fn_get_customer_age_group(DateOfBirth)
+        </CommandText>
+      </Query>
+    </DataSet>
+  </DataSets>
+  <Body>
+    <ReportItems>
+      <!-- Report body would be here -->
+    </ReportItems>
+  </Body>
+</Report>
